@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
             inputMoveAction = playerInput.actions["Move"];
         }
 
-        if ((characterController.isGrounded) && playerVelocity.y < 0)
+        if (IsCharacterControllerGrounded() && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
         }
@@ -89,11 +89,11 @@ public class PlayerController : MonoBehaviour
         float cameraVerticalRotation = cameraPivot.transform.localRotation.eulerAngles.x - (vyDelta * currentLookSpeed.y);
         cameraPivot.transform.localRotation = Quaternion.Euler(ClampAngle(cameraVerticalRotation, cameraMaximumDownRotation, cameraMaximumUpRotation), 0f, 0f);
 
+        // Camera distance and position
         int layerMask = 1 << 8;
         layerMask = ~layerMask;
 
         RaycastHit hit;
-
         if (Physics.Raycast(cameraPivot.transform.position, cameraPivot.transform.TransformDirection(Vector3.forward * -1), out hit, maxCameraDistance, layerMask))
         {
             cameraObject.transform.position = cameraPivot.transform.position + -cameraPivot.transform.forward * (hit.distance - 0.1f);
@@ -104,19 +104,18 @@ public class PlayerController : MonoBehaviour
         }
 
         cameraObject.transform.LookAt(cameraPivot.transform);
-
     }
 
     void OnControllsChanged(PlayerInput input)
 	{
-        if(debugText)
-            debugText.text = input.currentControlScheme;
+        //if(debugText)
+            //debugText.text = input.currentControlScheme;
 	}
 
     public void OnJump(InputValue input)
 	{
         // Jump
-        if (IsGrounded() || characterController.isGrounded)
+        if (IsCharacterControllerGrounded())
         {
             Debug.Log("Jump");
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
@@ -125,16 +124,101 @@ public class PlayerController : MonoBehaviour
 
     bool IsGrounded()
 	{
+        Debug.DrawRay(transform.position + new Vector3(0, 0.02f, 0), transform.TransformDirection(-Vector3.up) * 10, Color.red);
+
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position + new Vector3(0, 0.02f,0), transform.TransformDirection(Vector3.up * -1), out hit, Mathf.Infinity))
         {
-            Debug.DrawRay(transform.position + new Vector3(0, 0.02f, 0), hit.point, Color.red);
+            Debug.DrawRay(transform.position + new Vector3(0, 0.02f, 0), transform.TransformDirection(-Vector3.up) * hit.distance, Color.green);
             if (hit.distance < groundDetectionDistance)
 			{
                 return true;
 			}
         }
+        return false;
+	}
+
+    bool HasSomethingGrounded()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position + new Vector3(0, 0.02f, 0), transform.TransformDirection(Vector3.up * -1), out hit, Mathf.Infinity))
+        {
+            Debug.DrawRay(transform.position + new Vector3(0, 0.02f, 0), hit.point, Color.red);
+            if (hit.distance < groundDetectionDistance)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool IsCharacterControllerGrounded()
+	{
+        float steps = 8;
+        float stepAngle = 360 / steps;
+
+        float distance = (characterController.height / 2);
+        distance = distance * 1.1f;
+        float distanceFromCenter = characterController.radius;
+
+        if (RayCast(transform.position, -transform.up, 0, 0, distance)) return true;
+
+        for (int iRays = 0; iRays < steps; iRays++)
+		{
+            if(RayCast(transform.position, -transform.up, stepAngle * iRays, distanceFromCenter, distance))
+			{
+                return true;
+			}
+		}
+
+        return false;
+	}
+
+    public bool IsCharacterControllerCeiled()
+    {
+        float steps = 8;
+        float stepAngle = 360 / steps;
+
+        float distance = (characterController.height / 2);
+        distance = distance * 1.1f;
+        float distanceFromCenter = characterController.radius;
+        if (RayCast(transform.position, transform.up, 0, 0, distance)) return true;
+
+        for (int iRays = 0; iRays < steps; iRays++)
+        {
+            if (RayCast(transform.position, transform.up, stepAngle * iRays, distanceFromCenter, distance))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool RayCast(Vector3 origin, Vector3 direction, float angle, float distanceFromCenter, float distance)
+	{
+        float rad = (angle - transform.rotation.eulerAngles.y) * (Mathf.PI / 180);
+        Vector3 calculatedPosition = new Vector3(distanceFromCenter * Mathf.Cos(rad), 0f, distanceFromCenter * Mathf.Sin(rad));
+        Vector3 originPosition = transform.position + calculatedPosition;
+
+        Debug.DrawLine(originPosition, originPosition + (direction * (distance * 2)), Color.red);
+
+        RaycastHit hit;
+        if (Physics.Raycast(originPosition, direction, out hit, distance * 2))
+        {
+            Debug.DrawLine(originPosition, hit.point, Color.green);
+            if (hit.distance < distance)
+            {
+                return true;
+            }
+        }
+        else
+		{
+            Debug.DrawLine(originPosition, originPosition + (direction * (distance * 2)), Color.blue);
+        }
+
         return false;
 	}
 
@@ -154,6 +238,6 @@ public class PlayerController : MonoBehaviour
 
     protected float NormalizeAngle(float angle)
     {
-        return angle = (angle % 360 + 360) % 360; ;
+        return angle = (angle % 360 + 360) % 360;
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class Dialogo : ScriptableObject
 
 {
-    public Personaje personaje;
+    
     public Linea[] lineas;
 
 }

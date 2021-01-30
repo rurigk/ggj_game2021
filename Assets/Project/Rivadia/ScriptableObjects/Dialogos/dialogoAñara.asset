@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43782dc4343a506458f56cd6a14dc5b1, type: 3}
   m_Name: "dialogoA\xF1ara"
   m_EditorClassIdentifier: 
-  personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
   lineas:
   - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
     linea: Hola
   - personaje: {fileID: 11400000, guid: ca42767bfb94cd547bbea89e3f2d3455, type: 2}
-    linea: Como
+    linea: dsfdfdfdfdfdfdfsdfdfdsfdfsdfds
   - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
-    linea: 'Chale
-
-'
+    linea: Yeah!
+  - personaje: {fileID: 11400000, guid: ca42767bfb94cd547bbea89e3f2d3455, type: 2}
+    linea: out!
+  - personaje: {fileID: 11400000, guid: ca42767bfb94cd547bbea89e3f2d3455, type: 2}
+    linea: Como no
+  - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
+    linea: "\xD1aaaa\n"

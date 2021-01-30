@@ -18,12 +18,17 @@ public class PlayerController : MonoBehaviour
     private InputAction inputLookAction;
     private InputAction inputMoveAction;
 
+    [Header("Audio Manager")]
+    public PlayerAudioManager audioManager;
+
     [Header("Movement")]
     Vector3 playerVelocity;
     public Vector2 movementSpeed;
     public float jumpHeight = 1.0f;
     public float gravityValue = -9.81f;
     public float groundDetectionDistance = 0.1f;
+
+    bool ceilDetectionLocked = false;
 
     [Header("Camera")]
     public GameObject cameraPivot;
@@ -35,6 +40,11 @@ public class PlayerController : MonoBehaviour
     public Vector2 gamepadLookSpeed;
     Vector2 currentLookSpeed;
 
+    [Header("Model Tilt Effect")]
+    public float maxTilt = 10;
+    public Transform tiltXAxis;
+    public Transform tiltYAxis;
+
     private void Awake()
     {
     }
@@ -43,6 +53,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        audioManager = GetComponent<PlayerAudioManager>();
         /*onControlsChanged += OnControllsChanged;
         playerInput.onControlsChanged += onControlsChanged;*/
     }
@@ -55,6 +66,17 @@ public class PlayerController : MonoBehaviour
             playerInput = GetComponent<PlayerInput>();
             inputLookAction = playerInput.actions["Look"];
             inputMoveAction = playerInput.actions["Move"];
+        }
+
+        bool characterCeiled = IsCharacterControllerCeiled();
+        if (!ceilDetectionLocked && characterCeiled && playerVelocity.y > 0)
+        {
+            playerVelocity.y = 0f;
+            ceilDetectionLocked = true;
+        }
+        else if(ceilDetectionLocked && !characterCeiled)
+		{
+            ceilDetectionLocked = false;
         }
 
         if (IsCharacterControllerGrounded() && playerVelocity.y < 0)
@@ -71,6 +93,19 @@ public class PlayerController : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         characterController.Move(playerVelocity * Time.deltaTime);
+
+        // Tilt
+
+        tiltXAxis.localRotation = Quaternion.Euler(0f, 0f, maxTilt * -moveAxis.x);
+        tiltYAxis.localRotation = Quaternion.Euler(maxTilt * moveAxis.y, 0f, 0f);
+
+        float deltaX = moveAxis.x < 0 ? -moveAxis.x : moveAxis.x;
+        float deltaY = moveAxis.y < 0 ? -moveAxis.y : moveAxis.y;
+        float audioDelta = deltaX > deltaY ? deltaX : deltaY;
+
+        debugText.text = audioDelta.ToString();
+
+        audioManager.SetHoverSoundVolume(audioDelta);
 
         // Rotate
         Vector2 lookAxis = inputLookAction.ReadValue<Vector2>();
@@ -117,7 +152,6 @@ public class PlayerController : MonoBehaviour
         // Jump
         if (IsCharacterControllerGrounded())
         {
-            Debug.Log("Jump");
             playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
     }
@@ -188,7 +222,7 @@ public class PlayerController : MonoBehaviour
 
         for (int iRays = 0; iRays < steps; iRays++)
         {
-            if (RayCast(transform.position, transform.up, stepAngle * iRays, distanceFromCenter, distance))
+            if (RayCast(transform.position, transform.up, stepAngle * iRays, distanceFromCenter, distance * 0.8f))
             {
                 return true;
             }
@@ -199,16 +233,19 @@ public class PlayerController : MonoBehaviour
 
     public bool RayCast(Vector3 origin, Vector3 direction, float angle, float distanceFromCenter, float distance)
 	{
+        int layerMask = 1 << 8;
+        layerMask = ~layerMask;
+
         float rad = (angle - transform.rotation.eulerAngles.y) * (Mathf.PI / 180);
         Vector3 calculatedPosition = new Vector3(distanceFromCenter * Mathf.Cos(rad), 0f, distanceFromCenter * Mathf.Sin(rad));
         Vector3 originPosition = transform.position + calculatedPosition;
 
-        Debug.DrawLine(originPosition, originPosition + (direction * (distance * 2)), Color.red);
+        //Debug.DrawLine(originPosition, originPosition + (direction * (distance)), Color.red);
 
         RaycastHit hit;
-        if (Physics.Raycast(originPosition, direction, out hit, distance * 2))
+        if (Physics.Raycast(originPosition, direction, out hit, distance * 2, layerMask))
         {
-            Debug.DrawLine(originPosition, hit.point, Color.green);
+            Debug.DrawLine(originPosition, originPosition + (direction * (distance)), Color.green);
             if (hit.distance < distance)
             {
                 return true;
@@ -216,7 +253,7 @@ public class PlayerController : MonoBehaviour
         }
         else
 		{
-            Debug.DrawLine(originPosition, originPosition + (direction * (distance * 2)), Color.blue);
+            Debug.DrawLine(originPosition, originPosition + (direction * (distance)), Color.blue);
         }
 
         return false;

@@ -109,7 +109,8 @@ public class PlayerController : MonoBehaviour
 
     void OnControllsChanged(PlayerInput input)
 	{
-        debugText.text = input.currentControlScheme;
+        if(debugText)
+            debugText.text = input.currentControlScheme;
 	}
 
     public void OnJump(InputValue input)
@@ -129,7 +130,6 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(transform.position + new Vector3(0, 0.02f,0), transform.TransformDirection(Vector3.up * -1), out hit, Mathf.Infinity))
         {
             Debug.DrawRay(transform.position + new Vector3(0, 0.02f, 0), hit.point, Color.red);
-            debugText.text = hit.distance.ToString();
             if (hit.distance < groundDetectionDistance)
 			{
                 return true;

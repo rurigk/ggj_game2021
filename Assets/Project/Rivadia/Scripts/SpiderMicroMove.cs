@@ -21,25 +21,24 @@ public class SpiderMicroMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.transform.position.y > 0)
-        {
-            velocity = Random.Range(0.5f, 0.8f);
-            transform.Translate(Vector3.up*-velocity);
-        }
+        velocity = Random.Range(5f, 7f);
+      
+           
+        
 
-        if (this.transform.position.y < 0)
-        {
-            this.transform.LookAt(-target.position);
+      
+            this.transform.LookAt(target.position);
             
-        }
+        
 
         Vector3 targetPos = target.position-this.transform.position;
+        Debug.DrawRay(this.transform.position,targetPos,Color.red);
 
         targetPos.Normalize();
         
-        if (targetPos.magnitude > 0.8f)
+        if (targetPos.magnitude > 0.5f)
         {
-            this.transform.Translate(targetPos*0.5f*Time.deltaTime);
+            this.transform.Translate(targetPos*velocity*Time.deltaTime);
         }
     }
 }

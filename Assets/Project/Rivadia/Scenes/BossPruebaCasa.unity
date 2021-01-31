@@ -3730,7 +3730,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4027,7 +4027,7 @@ PrefabInstance:
     - target: {fileID: 3678249000880947811, guid: e633fcb4f116d9545b16bfbe8932ce1f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.35
+      value: -9.71
       objectReference: {fileID: 0}
     - target: {fileID: 3678249000880947811, guid: e633fcb4f116d9545b16bfbe8932ce1f,
         type: 3}

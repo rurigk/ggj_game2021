@@ -626,6 +626,7 @@ GameObject:
   - component: {fileID: 4319437615986292282}
   - component: {fileID: 6088523673148579266}
   - component: {fileID: -1129098053375586709}
+  - component: {fileID: 2763506006378049994}
   m_Layer: 0
   m_Name: spiderMicro
   m_TagString: spiderMicro
@@ -662,8 +663,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.15, z: 0.32}
-  m_Center: {x: -0.04, y: 0.15, z: 0.10886151}
+  m_Size: {x: 6.9789877, y: 4.874011, z: 14.439116}
+  m_Center: {x: 0.4744006, y: 4.6126003, z: -4.7328157}
 --- !u!114 &-1129098053375586709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -677,6 +678,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+--- !u!54 &2763506006378049994
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511234362985344128}
+  serializedVersion: 2
+  m_Mass: 3
+  m_Drag: 0.5
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 64
+  m_CollisionDetection: 0
 --- !u!1 &3700817439867410440
 GameObject:
   m_ObjectHideFlags: 0
@@ -2086,7 +2103,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a75f26ad748da2d428a298f17d86019f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a75f26ad748da2d428a298f17d86019f,
         type: 3}
@@ -2096,7 +2113,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a75f26ad748da2d428a298f17d86019f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a75f26ad748da2d428a298f17d86019f,
         type: 3}
@@ -2111,7 +2128,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: a75f26ad748da2d428a298f17d86019f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a75f26ad748da2d428a298f17d86019f,
         type: 3}

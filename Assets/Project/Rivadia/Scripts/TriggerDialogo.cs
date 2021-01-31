@@ -11,6 +11,7 @@ public class TriggerDialogo : MonoBehaviour
     {
         if (other.tag=="Player")
         {
+            Debug.Log("entraste");
             nuevoevento.Invoke();
         }
        

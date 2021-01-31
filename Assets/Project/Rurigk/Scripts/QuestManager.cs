@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
+
 
 public class QuestManager : MonoBehaviour
 {
@@ -14,6 +16,7 @@ public class QuestManager : MonoBehaviour
 
     public GameObject questProgressPanel;
 
+    public UnityEvent eventoFinalizado;
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +93,21 @@ public class QuestManager : MonoBehaviour
     public void EndQuest()
     {
         questProgressPanel.SetActive(false);
+    }
+
+
+    public void QuestComplete()
+    {
+        QuestIsComplete();
+        if (QuestIsComplete())
+        {
+            eventoFinalizado.Invoke();
+        }
+        else
+        {
+            
+            Debug.Log("Aun no completas las mision");
+        }
     }
 
     public bool QuestIsComplete()

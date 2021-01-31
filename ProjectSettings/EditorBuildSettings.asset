@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/Rivadia/Scenes/BossPruebaCasa.unity
     guid: cbb6cc8b712535541921587144d22de7
+  - enabled: 1
+    path: Assets/Project/Rivadia/Scenes/Creditos.unity
+    guid: a4dc032890f9cd14485a8d7cc4ecfe40
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2e96ce72e7e369a428ee95f4afd4728e,
       type: 2}

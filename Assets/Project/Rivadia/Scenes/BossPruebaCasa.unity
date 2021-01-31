@@ -4067,7 +4067,7 @@ MonoBehaviour:
   cross: {fileID: 30747913}
   barraVida: {fileID: 292639182}
   onCamera: 0
-  numeroEscena: 0
+  numeroEscena: 3
 --- !u!1 &1266256018
 GameObject:
   m_ObjectHideFlags: 0

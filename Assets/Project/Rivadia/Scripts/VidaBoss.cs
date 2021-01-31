@@ -70,7 +70,7 @@ public class VidaBoss : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         Debug.Log("Cambiaste de escena");
-        //SceneManager.LoadScene(escene);
+        SceneManager.LoadScene(escene);
         yield break;
     }
 }

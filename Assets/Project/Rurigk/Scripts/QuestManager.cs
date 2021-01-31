@@ -16,6 +16,9 @@ public class QuestManager : MonoBehaviour
 
     public GameObject questProgressPanel;
 
+    public GameObject doorOpen;
+    public GameObject doorClosed;
+
     public UnityEvent eventoFinalizado;
     // Start is called before the first frame update
     void Start()
@@ -88,6 +91,8 @@ public class QuestManager : MonoBehaviour
     public void StartQuest()
 	{
         questProgressPanel.SetActive(true);
+        doorClosed.SetActive(false);
+        doorOpen.SetActive(true);
     }
 
     public void EndQuest()

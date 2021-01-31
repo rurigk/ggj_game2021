@@ -208,7 +208,7 @@ public class PlayerController : MonoBehaviour
     public void OnFire(InputValue input)
     {
         // Jump
-        if (!characterAnimator.GetCurrentAnimatorStateInfo(0).IsName("Shoot") && !shootLock)
+        if (!characterAnimator.GetCurrentAnimatorStateInfo(0).IsName("Shoot") && !shootLock && !playerLocked)
         {
             shootLock = true;
             characterAnimator.SetTrigger("Shoot");

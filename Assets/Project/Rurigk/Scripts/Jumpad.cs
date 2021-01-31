@@ -8,7 +8,7 @@ public class Jumpad : MonoBehaviour {
     RaycastHit hit;
     Ray clickRay;
 
-    Renderer modelRenderer;
+    public Renderer modelRenderer;
     float controlTime;
 
     public float jumpScale = 1;
@@ -18,7 +18,10 @@ public class Jumpad : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        modelRenderer = GetComponent<MeshRenderer>();
+        if(!modelRenderer)
+		{
+            modelRenderer = GetComponent<MeshRenderer>();
+        }
     }
 	
 	// Update is called once per frame

@@ -658,6 +658,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jumpad (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6551669887186739164, guid: e6ca62b0f1d91824a8b86bfb052a5fc2,
+        type: 3}
+      propertyPath: jumpScale
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6730221112960940088, guid: e6ca62b0f1d91824a8b86bfb052a5fc2,
         type: 3}
       propertyPath: m_RootOrder
@@ -7174,7 +7179,7 @@ PrefabInstance:
     - target: {fileID: 7390788775857388340, guid: 7d7dcda970f301d46955149b75f8f764,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.47
+      value: -14.45
       objectReference: {fileID: 0}
     - target: {fileID: 7390788775857388340, guid: 7d7dcda970f301d46955149b75f8f764,
         type: 3}
@@ -9647,7 +9652,7 @@ PrefabInstance:
     - target: {fileID: 7390788775857388340, guid: 7d7dcda970f301d46955149b75f8f764,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.48
+      value: 4.2
       objectReference: {fileID: 0}
     - target: {fileID: 7390788775857388340, guid: 7d7dcda970f301d46955149b75f8f764,
         type: 3}

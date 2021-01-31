@@ -36,6 +36,6 @@ public class MainMenu : MonoBehaviour
     IEnumerator ChangeScene()
 	{
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene("Game", LoadSceneMode.Single);
+        SceneManager.LoadScene("FinalGameScene", LoadSceneMode.Single);
 	}
 }

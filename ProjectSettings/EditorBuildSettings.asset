@@ -4,7 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Project/Rurigk/Scenes/MainMenu.unity
+    guid: 28332f3aed32eab40895bbd5739136ec
+  - enabled: 1
+    path: Assets/Project/Rurigk/Scenes/Game.unity
+    guid: f6d7f3fff3c84c043962241be9584e37
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 2e96ce72e7e369a428ee95f4afd4728e,
       type: 2}

@@ -2,23 +2,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ControlDialogo : MonoBehaviour
 {
 
+    public GameObject[] cameras;
+    public GameObject panel;
 
-    
+    public Text nombreText;
+    public Text dialogoText;
+
+  
     //Crea cola de dialogo
     private Queue<string> sentencias;
 
    
     //Recibe el scritableObject de los dialogos
     public Dialogo dialogo;
+    
 
     public int contadorDialogo;
     // Start is called before the first frame update
     void Start()
     {
+       
+       
         sentencias = new Queue<string>();
         IniciarDialogo(dialogo);
     }
@@ -27,7 +36,8 @@ public class ControlDialogo : MonoBehaviour
     // Inicia la carga y limpieza de cola de los dialogos
     public void IniciarDialogo(Dialogo dialogo)
     {
-        ManejadorInterfaz.nombrepersonaje = dialogo.lineas[contadorDialogo].personaje.nombrePersonaje;
+        
+        nombreText.text= dialogo.lineas[contadorDialogo].personaje.nombrePersonaje;
         contadorDialogo = 0;
         sentencias.Clear();
       
@@ -40,7 +50,7 @@ public class ControlDialogo : MonoBehaviour
 
 
         string sentencia = sentencias.Dequeue();
-        ManejadorInterfaz.dialogoPersonaje = sentencia;
+        dialogoText.text = sentencia;
     }
 
 
@@ -55,13 +65,16 @@ public class ControlDialogo : MonoBehaviour
         
         if (sentencias.Count == 0)
         {
+           cameras[0].SetActive(true);
+           cameras[1].SetActive(false);
+           panel.SetActive(false);
             return;
         }
         //cambioPersonaje();
         string sentencia = sentencias.Dequeue();
         
-        ManejadorInterfaz.nombrepersonaje = dialogo.lineas[contadorDialogo].personaje.nombrePersonaje;
-        ManejadorInterfaz.dialogoPersonaje = sentencia;
+        nombreText.text = dialogo.lineas[contadorDialogo].personaje.nombrePersonaje;
+        dialogoText.text = sentencia;
 
     }
 
@@ -72,6 +85,8 @@ public class ControlDialogo : MonoBehaviour
        
     }
 
-    
+
+
+
 
 }

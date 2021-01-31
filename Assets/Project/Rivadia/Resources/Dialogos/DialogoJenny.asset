@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43782dc4343a506458f56cd6a14dc5b1, type: 3}
+  m_Name: DialogoJenny
+  m_EditorClassIdentifier: 
+  lineas:
+  - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
+    linea: "\xBFdonde estoy?, \xBFqu\xE9 sucedi\xF3?."
+  - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
+    linea: "Jenny Informe de da\xF1os \xFAltimas 5 horas."
+  - personaje: {fileID: 11400000, guid: 6b164546c9436944793f4d01b95d6d9c, type: 2}
+    linea: "9 horas un meteorito choco directamente \u2026. perdiendo conexi\xF3n
+      con los registros posteriores al choque"
+  - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
+    linea: "ubicaci\xF3n de la nave."
+  - personaje: {fileID: 11400000, guid: 6b164546c9436944793f4d01b95d6d9c, type: 2}
+    linea: 'No poseo datos '
+  - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
+    linea: calcula la trayectoria posterior al choque.
+  - personaje: {fileID: 11400000, guid: 6b164546c9436944793f4d01b95d6d9c, type: 2}
+    linea: "A un costado de la estaci\xF3n de recarga humana."
+  - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
+    linea: "Entendido. Me pondr\xE9 a investigar."

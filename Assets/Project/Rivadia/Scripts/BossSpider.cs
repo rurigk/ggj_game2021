@@ -91,7 +91,9 @@ public class BossSpider : MonoBehaviour
                 StartCoroutine(Disparo(EstadosAtaque.fase1));
                 break;
             case EstadosAtaque.Fase2:
+                
                 StartCoroutine(ChangeShoot(EstadosAtaque.shoot2));
+                anim.enabled = false;
                 break;
             case EstadosAtaque.shoot2:
                 StartCoroutine(Disparo(EstadosAtaque.Fase2));
@@ -195,6 +197,8 @@ public class BossSpider : MonoBehaviour
         estadoActual = e;
         anim.enabled = false;
         look = true;
+        yield return new WaitForSeconds(0.5f);
+        StopCoroutine("AnimationCorr");
         yield return null;
 
     }

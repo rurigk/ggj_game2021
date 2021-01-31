@@ -28,15 +28,16 @@ public class SpiderMicroMove : MonoBehaviour
 
       
             this.transform.LookAt(target.position);
-            
-        
 
-        Vector3 targetPos = target.position-this.transform.position;
-        Debug.DrawRay(this.transform.position,targetPos,Color.red);
+
+            Vector3 tPos = new Vector3(target.position.x, this.transform.position.y, target.position.y);        
+
+        Vector3 targetPos = tPos-this.transform.position;
+       
 
         targetPos.Normalize();
         
-        if (targetPos.magnitude > 0.5f)
+        if (targetPos.magnitude > 0.99f)
         {
             this.transform.Translate(targetPos*velocity*Time.deltaTime);
         }

@@ -18,7 +18,7 @@ MonoBehaviour:
   - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
     linea: "Jenny Informe de da\xF1os \xFAltimas 5 horas."
   - personaje: {fileID: 11400000, guid: 6b164546c9436944793f4d01b95d6d9c, type: 2}
-    linea: "9 horas un meteorito choco directamente \u2026. perdiendo conexi\xF3n
+    linea: "9 horas un meteorito choco directamente \u2026. \n perdiendo conexi\xF3n
       con los registros posteriores al choque"
   - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
     linea: "ubicaci\xF3n de la nave."

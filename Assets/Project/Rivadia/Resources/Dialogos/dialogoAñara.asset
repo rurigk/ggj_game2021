@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: "dialogoA\xF1ara"
   m_EditorClassIdentifier: 
   lineas:
-  - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
-    linea: Jenny busca rastros de calor.
-  - personaje: {fileID: 11400000, guid: 6b164546c9436944793f4d01b95d6d9c, type: 2}
-    linea: 'rastros de calor encontrados a 500 cuarthz. '
   - personaje: {fileID: 11400000, guid: ca42767bfb94cd547bbea89e3f2d3455, type: 2}
     linea: zhszhhs zhszsshhs
   - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
@@ -28,11 +24,8 @@ MonoBehaviour:
   - personaje: {fileID: 11400000, guid: ca42767bfb94cd547bbea89e3f2d3455, type: 2}
     linea: Fueraz de miz dominioz.
   - personaje: {fileID: 11400000, guid: 4009a5c392ff4d14ab88eea656edb7b0, type: 2}
-    linea: "Perdone mi atrevimiento, pero usted posee algo que es de mi posesi\xF3n."
+    linea: "Perdone mi atrevimiento, pero usted posee algo que es de mi posesi\xF3n"
   - personaje: {fileID: 11400000, guid: ca42767bfb94cd547bbea89e3f2d3455, type: 2}
     linea: "Si la quieres de regreso tendr\xE1s que ayudarme en algo."
   - personaje: {fileID: 11400000, guid: ca42767bfb94cd547bbea89e3f2d3455, type: 2}
-    linea: "Necesitoz lo siguiente lo encontraraz en esta habitaci\xF3n, 15 hongoz,
-      5 petaloz, 8 cerezaz."
-  - personaje: {fileID: 11400000, guid: ca42767bfb94cd547bbea89e3f2d3455, type: 2}
-    linea: no te garantizo la seguridad con mis hijos.
+    linea: Necesitoz lo siguiente lo encontraraz en esta casa, 10 petaloz y 10 cerezaz.

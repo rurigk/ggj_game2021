@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class ControlDialogo : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class ControlDialogo : MonoBehaviour
     
 
     public int contadorDialogo;
+
+    public UnityEvent nuevoEvento;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +70,7 @@ public class ControlDialogo : MonoBehaviour
         {
            cameras[0].SetActive(true);
            cameras[1].SetActive(false);
+           nuevoEvento.Invoke();
            panel.SetActive(false);
             return;
         }

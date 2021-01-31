@@ -13,12 +13,14 @@ public class VidaBoss : MonoBehaviour
     public GameObject cameraFinal;
     public Transform target;
     public GameObject panel;
+    public GameObject cross;
+    public GameObject barraVida;
 
     public bool onCamera;
     public int numeroEscena;
     private void Awake()
     {
-        vidaBoss = 1;
+        vidaBoss = 10;
         vidaActual = vidaBoss;
     }
 
@@ -56,7 +58,10 @@ public class VidaBoss : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             player.GetComponent<PlayerController>().LockPlayer();
             onCamera = true;
+            cross.SetActive(false);
+            barraVida.SetActive(false);
             panel.SetActive(true);
+          
             StartCoroutine(CambiarEscena(numeroEscena));
         }
     }

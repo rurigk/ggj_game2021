@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class ColisionBoss : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    private void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.tag=="bullet")
+        {
+            VidaBoss.vidaBoss--;
+            Debug.Log("Obligame perro!");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

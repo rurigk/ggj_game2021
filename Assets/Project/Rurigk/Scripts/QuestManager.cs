@@ -53,8 +53,7 @@ public class QuestManager : MonoBehaviour
         {
             petalosCollected = collectedItems["petalo"];
         }
-        cherryCounter.text = cherrysCollected.ToString() + "/" + cherrys.ToString();
-
+        petaloCounter.text = petalosCollected.ToString() + "/" + petalos.ToString();
 
     }
 
@@ -68,6 +67,7 @@ public class QuestManager : MonoBehaviour
 		{
             existingItems.Add(type, 1);
 		}
+        
 	}
 
     public void CollectQuestItem(string type)
@@ -85,6 +85,11 @@ public class QuestManager : MonoBehaviour
     public void StartQuest()
 	{
         questProgressPanel.SetActive(true);
+    }
+
+    public void EndQuest()
+    {
+        questProgressPanel.SetActive(false);
     }
 
     public bool QuestIsComplete()

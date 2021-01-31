@@ -11,6 +11,7 @@ public class PlayerAudioManager : MonoBehaviour
     public AudioClip pauseMusicSound;
 
     public AudioClip shootSound;
+    public AudioClip collectSound;
 
     // Audio sources
     AudioSource hoverSoundSource;
@@ -18,6 +19,7 @@ public class PlayerAudioManager : MonoBehaviour
     AudioSource pauseSoundSource;
 
     AudioSource shootSoundSource;
+    AudioSource collectSoundSource;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +32,7 @@ public class PlayerAudioManager : MonoBehaviour
         ConfigureAmbientMusicAudioSource();
         ConfigureHoverAudioSource();
         ConfigureShootAudioSource();
+        ConfigureCollectAudioSource();
     }
 
     void ConfigureShootAudioSource()
@@ -39,6 +42,15 @@ public class PlayerAudioManager : MonoBehaviour
         shootSoundSource.loop = false;
         shootSoundSource.playOnAwake = false;
         shootSoundSource.volume = 0.1f;
+    }
+
+    void ConfigureCollectAudioSource()
+    {
+        collectSoundSource = gameObject.AddComponent<AudioSource>();
+        collectSoundSource.clip = collectSound;
+        collectSoundSource.loop = false;
+        collectSoundSource.playOnAwake = false;
+        collectSoundSource.volume = 0.2f;
     }
 
     void ConfigurePauseMusicAudioSource()
@@ -80,6 +92,11 @@ public class PlayerAudioManager : MonoBehaviour
 	{
         shootSoundSource.PlayOneShot(shootSound);
 	}
+
+    public void PlayCollectSound()
+    {
+        collectSoundSource.PlayOneShot(collectSound);
+    }
 
     public void SetHoverSoundVolume(float volumeScale)
 	{

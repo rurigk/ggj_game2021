@@ -14,6 +14,16 @@ public class QuestItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.RotateAroundLocal(Vector3.up, 1f * Time.deltaTime);
     }
+
+	void OnTriggerEnter(Collider collision)
+	{
+        if(collision.gameObject.tag == "Player")
+		{
+            PlayerAudioManager.Instance.PlayCollectSound();
+            QuestManager.Instance.CollectQuestItem(type);
+            Destroy(gameObject);
+        }
+	}
 }

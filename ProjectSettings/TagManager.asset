@@ -6,6 +6,7 @@ TagManager:
   tags:
   - pBoss
   - spiderMicro
+  - bullet
   layers:
   - Default
   - TransparentFX

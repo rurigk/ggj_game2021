@@ -55,6 +55,9 @@ public class PlayerController : MonoBehaviour
     public Animator characterAnimator;
     bool shootLock = false;
 
+    [Header("Player lock")]
+    bool playerLocked = false;
+
     private void Awake()
     {
     }
@@ -93,89 +96,92 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        // Move
-        Vector2 moveAxis = inputMoveAction.ReadValue<Vector2>();
-        float mxDelta = Time.deltaTime * (moveAxis.x * movementSpeed.x);
-        float myDelta = Time.deltaTime * (moveAxis.y * movementSpeed.y);
-        characterController.Move(transform.forward * myDelta);
-        characterController.Move(transform.right * mxDelta);
-
-        playerVelocity.y += gravityValue * Time.deltaTime;
-
-        if (IsCharacterControllerGrounded() && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
-
-        characterController.Move(playerVelocity * Time.deltaTime);
-
-        // Tilt
-
-        tiltVector = Vector2.Lerp(tiltVector, moveAxis, Time.deltaTime * 10);
-
-        tiltXAxis.localRotation = Quaternion.Euler(0f, 0f, maxTilt * -tiltVector.x);
-        tiltYAxis.localRotation = Quaternion.Euler(maxTilt * tiltVector.y, 0f, 0f);
-
-        // Audio volume by movement
-
-        /*float deltaX = moveAxis.x < 0 ? -moveAxis.x : moveAxis.x;
-        float deltaY = moveAxis.y < 0 ? -moveAxis.y : moveAxis.y;
-        float audioDelta = deltaX > deltaY ? deltaX : deltaY;
-        
-        audioManager.SetHoverSoundVolume(audioDelta);
-        */
-
-        // Rotate
-        Vector2 lookAxis = inputLookAction.ReadValue<Vector2>();
-        if(playerInput.currentControlScheme == "Gamepad")
+        if(!playerLocked)
 		{
-            currentLookSpeed = gamepadLookSpeed;
+            // Move
+            Vector2 moveAxis = inputMoveAction.ReadValue<Vector2>();
+            float mxDelta = Time.deltaTime * (moveAxis.x * movementSpeed.x);
+            float myDelta = Time.deltaTime * (moveAxis.y * movementSpeed.y);
+            characterController.Move(transform.forward * myDelta);
+            characterController.Move(transform.right * mxDelta);
+
+            playerVelocity.y += gravityValue * Time.deltaTime;
+
+            if (IsCharacterControllerGrounded() && playerVelocity.y < 0)
+            {
+                playerVelocity.y = 0f;
+            }
+
+            characterController.Move(playerVelocity * Time.deltaTime);
+
+            // Tilt
+
+            tiltVector = Vector2.Lerp(tiltVector, moveAxis, Time.deltaTime * 10);
+
+            tiltXAxis.localRotation = Quaternion.Euler(0f, 0f, maxTilt * -tiltVector.x);
+            tiltYAxis.localRotation = Quaternion.Euler(maxTilt * tiltVector.y, 0f, 0f);
+
+            // Audio volume by movement
+
+            /*float deltaX = moveAxis.x < 0 ? -moveAxis.x : moveAxis.x;
+            float deltaY = moveAxis.y < 0 ? -moveAxis.y : moveAxis.y;
+            float audioDelta = deltaX > deltaY ? deltaX : deltaY;
+
+            audioManager.SetHoverSoundVolume(audioDelta);
+            */
+
+            // Rotate
+            Vector2 lookAxis = inputLookAction.ReadValue<Vector2>();
+            if (playerInput.currentControlScheme == "Gamepad")
+            {
+                currentLookSpeed = gamepadLookSpeed;
+            }
+            else
+            {
+                currentLookSpeed = lookSpeed;
+            }
+            float vxDelta = Time.deltaTime * (lookAxis.x * currentLookSpeed.x);
+            float vyDelta = Time.deltaTime * (lookAxis.y * currentLookSpeed.y);
+            transform.Rotate(0f, (currentLookSpeed.x * vxDelta), 0f);
+
+            float cameraVerticalRotation = cameraPivot.transform.localRotation.eulerAngles.x - (vyDelta * currentLookSpeed.y);
+            cameraPivot.transform.localRotation = Quaternion.Euler(ClampAngle(cameraVerticalRotation, cameraMaximumDownRotation, cameraMaximumUpRotation), 0f, 0f);
+
+            // Raycast mask
+            int layerMask = 1 << 8;
+            layerMask = ~layerMask;
+
+            // Calc internal camera pivot
+
+            RaycastHit pivotHit;
+            if (Physics.Raycast(cameraPivot.transform.position, cameraPivotInternal.transform.TransformDirection(Vector3.up), out pivotHit, maxInternalPivotDistance, layerMask))
+            {
+                cameraPivotInternal.transform.localPosition = Vector3.up * (pivotHit.distance * 0.95f);
+            }
+            else
+            {
+                cameraPivotInternal.transform.localPosition = Vector3.up * (maxInternalPivotDistance * 0.95f);
+            }
+
+            // Camera distance and position
+
+            RaycastHit hit;
+            if (Physics.Raycast(cameraPivotInternal.transform.position, cameraPivotInternal.transform.TransformDirection(Vector3.forward * -1), out hit, maxCameraDistance, layerMask))
+            {
+                Vector3 newCameraPos = cameraPivotInternal.transform.position + -cameraPivotInternal.transform.forward * (hit.distance - 0.1f);
+                cameraObject.transform.position = Vector3.Lerp(cameraObject.transform.position, newCameraPos, Time.deltaTime * 20);
+                //cameraObject.transform.position = newCameraPos;
+            }
+            else
+            {
+                Vector3 newCameraPos = cameraPivotInternal.transform.position + -cameraPivotInternal.transform.forward * (maxCameraDistance - 0.1f);
+                cameraObject.transform.position = Vector3.Lerp(cameraObject.transform.position, newCameraPos, Time.deltaTime * 20);
+                //cameraObject.transform.position = newCameraPos;
+            }
+
+            Debug.DrawLine(cameraPivotInternal.transform.position, cameraPivotInternal.transform.position + (cameraPivotInternal.transform.forward * 6f), Color.magenta);
+            cameraObject.transform.LookAt(cameraPivotInternal.transform.position + (cameraPivotInternal.transform.forward * 6f));
         }
-        else
-		{
-            currentLookSpeed = lookSpeed;
-        }
-        float vxDelta = Time.deltaTime * (lookAxis.x * currentLookSpeed.x);
-        float vyDelta = Time.deltaTime * (lookAxis.y * currentLookSpeed.y);
-        transform.Rotate(0f, (currentLookSpeed.x * vxDelta), 0f);
-
-        float cameraVerticalRotation = cameraPivot.transform.localRotation.eulerAngles.x - (vyDelta * currentLookSpeed.y);
-        cameraPivot.transform.localRotation = Quaternion.Euler(ClampAngle(cameraVerticalRotation, cameraMaximumDownRotation, cameraMaximumUpRotation), 0f, 0f);
-
-        // Raycast mask
-        int layerMask = 1 << 8;
-        layerMask = ~layerMask;
-
-        // Calc internal camera pivot
-
-        RaycastHit pivotHit;
-        if (Physics.Raycast(cameraPivot.transform.position, cameraPivotInternal.transform.TransformDirection(Vector3.up), out pivotHit, maxInternalPivotDistance, layerMask))
-        {
-            cameraPivotInternal.transform.localPosition = Vector3.up * (pivotHit.distance * 0.95f);
-        }
-        else
-        {
-            cameraPivotInternal.transform.localPosition = Vector3.up * (maxInternalPivotDistance * 0.95f);
-        }
-
-        // Camera distance and position
-
-        RaycastHit hit;
-        if (Physics.Raycast(cameraPivotInternal.transform.position, cameraPivotInternal.transform.TransformDirection(Vector3.forward * -1), out hit, maxCameraDistance, layerMask))
-        {
-            Vector3 newCameraPos = cameraPivotInternal.transform.position + -cameraPivotInternal.transform.forward * (hit.distance - 0.1f);
-            cameraObject.transform.position = Vector3.Lerp(cameraObject.transform.position, newCameraPos, Time.deltaTime * 20);
-            //cameraObject.transform.position = newCameraPos;
-        }
-        else
-        {
-            Vector3 newCameraPos = cameraPivotInternal.transform.position + -cameraPivotInternal.transform.forward * (maxCameraDistance - 0.1f);
-            cameraObject.transform.position = Vector3.Lerp(cameraObject.transform.position, newCameraPos, Time.deltaTime * 20);
-            //cameraObject.transform.position = newCameraPos;
-        }
-
-        Debug.DrawLine(cameraPivotInternal.transform.position, cameraPivotInternal.transform.position + (cameraPivotInternal.transform.forward * 6f), Color.magenta);
-        cameraObject.transform.LookAt(cameraPivotInternal.transform.position + (cameraPivotInternal.transform.forward * 6f));
     }
 
     void OnControllsChanged(PlayerInput input)
@@ -288,6 +294,16 @@ public class PlayerController : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void LockPlayer()
+	{
+        playerLocked = true;
+	}
+
+    public void UnlockPlayer()
+    {
+        playerLocked = false;
     }
 
     public bool RayCast(Vector3 origin, Vector3 direction, float angle, float distanceFromCenter, float distance)

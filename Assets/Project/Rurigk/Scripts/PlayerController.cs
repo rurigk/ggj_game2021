@@ -299,11 +299,15 @@ public class PlayerController : MonoBehaviour
     public void LockPlayer()
 	{
         playerLocked = true;
-	}
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
     public void UnlockPlayer()
     {
         playerLocked = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public bool RayCast(Vector3 origin, Vector3 direction, float angle, float distanceFromCenter, float distance)

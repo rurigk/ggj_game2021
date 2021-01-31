@@ -13,7 +13,7 @@ public class BullScripts : MonoBehaviour
     void Start()
     {
         bulletRB = GetComponent<Rigidbody>();
-        target = GameObject.Find("Player");
+        target = GameObject.FindGameObjectWithTag("Player");
         Vector3 moveDir = (target.transform.position - transform.position).normalized * speed;
         bulletRB.velocity = new Vector3(moveDir.x, moveDir.y,moveDir.z);
         Destroy(this.gameObject, 5);

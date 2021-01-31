@@ -627,6 +627,7 @@ GameObject:
   - component: {fileID: 6088523673148579266}
   - component: {fileID: -1129098053375586709}
   - component: {fileID: 2763506006378049994}
+  - component: {fileID: -1926962259646977946}
   m_Layer: 0
   m_Name: spiderMicro
   m_TagString: spiderMicro
@@ -694,6 +695,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 64
   m_CollisionDetection: 0
+--- !u!114 &-1926962259646977946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511234362985344128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58e6f3bdbe403343a355e050eb4b35c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3700817439867410440
 GameObject:
   m_ObjectHideFlags: 0
